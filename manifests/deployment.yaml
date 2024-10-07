@@ -14,14 +14,13 @@ spec:
     spec:
       containers:
       - name: hello-server
-        image: hello-server:v2
+        image: hello-server:v1
         ports:
         - containerPort: 8080
-      - name: xyz
-        image: nginx
-        port:
-        volumeMount:
-        - featureflags
-  volume:
-    - configMap:
-      name: feature-flags
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi

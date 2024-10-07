@@ -53,6 +53,13 @@ func helloHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Fprintf(w, "Version is: %s\n", version)
 }
 
+// responds with a panic
+func panicHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	// Introduce a deliberate error to cause the server to crash
+	fmt.Println("CRASHING THE SERVER!")
+	os.Exit(1)
+}
+
 func main() {
 
 	// create a httprouter
@@ -61,6 +68,7 @@ func main() {
 	router.GET("/", helloHandler)
 	router.GET("/getip", getRemoteIPHandler)
 	router.GET("/health", healthCheckHandler)
+	router.GET("/panic", panicHandler)
 
 	// create a HTTP server
 	srv := &http.Server{
